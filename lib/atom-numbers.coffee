@@ -7,9 +7,6 @@ module.exports = AtomNumbers =
   subscriptions: null
 
   activate: (state) ->
-    @atomNumbersView = new AtomNumbersView(state.atomNumbersViewState)
-    @modalPanel = atom.workspace.addModalPanel(item: @atomNumbersView.getElement(), visible: false)
-
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
 
