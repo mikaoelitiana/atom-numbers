@@ -13,8 +13,9 @@ module.exports = AtomNumbers =
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
 
-    # Register command that toggles this view
-    @subscriptions.add atom.commands.add 'atom-workspace', 'atom-numbers:toggle': => @toggle()
+    # Register commands for Numbers
+    @subscriptions.add atom.commands.add 'atom-workspace', 'atom-numbers:increment': => @increment()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'atom-numbers:decrement': => @decrement()
 
   deactivate: ->
     @modalPanel.destroy()
@@ -24,10 +25,18 @@ module.exports = AtomNumbers =
   serialize: ->
     atomNumbersViewState: @atomNumbersView.serialize()
 
-  toggle: ->
-    console.log 'AtomNumbers was toggled!'
+  increment: ->
+    if editor = atom.workspace.getActiveTextEditor()
+      selectedText = editor.getSelectedText()
+      if isFinite selectedText
+        incrementedValue = Number(selectedText) + 1
+        range = editor.getSelectedBufferRange()
+        editor.setTextInBufferRange(range, incrementedValue.toString())
 
-    if @modalPanel.isVisible()
-      @modalPanel.hide()
-    else
-      @modalPanel.show()
+  decrement: ->
+    if editor = atom.workspace.getActiveTextEditor()
+      selectedText = editor.getSelectedText()
+      if isFinite selectedText
+        incrementedValue = Number(selectedText) - 1
+        range = editor.getSelectedBufferRange()
+        editor.setTextInBufferRange(range, incrementedValue.toString())

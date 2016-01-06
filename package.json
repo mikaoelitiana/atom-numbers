@@ -1,12 +1,16 @@
 {
   "name": "atom-numbers",
   "main": "./lib/atom-numbers",
-  "version": "0.0.0",
-  "description": "A short description of your package",
+  "version": "0.0.1",
+  "description": "Atom numbers tools",
   "keywords": [
+    "numbers",
+    "Increment",
+    "Decrement",
+    "operations"
   ],
   "activationCommands": {
-    "atom-workspace": "atom-numbers:toggle"
+    "atom-workspace": "atom-numbers:increment"
   },
   "repository": "https://github.com/atom/atom-numbers",
   "license": "MIT",

@@ -2,19 +2,23 @@
 'context-menu':
   'atom-text-editor': [
     {
-      'label': 'Toggle atom-numbers'
-      'command': 'atom-numbers:toggle'
+      'label': 'Increment number'
+      'command': 'atom-numbers:increment'
     }
   ]
 'menu': [
   {
     'label': 'Packages'
     'submenu': [
-      'label': 'atom-numbers'
+      'label': 'Numbers'
       'submenu': [
         {
-          'label': 'Toggle'
-          'command': 'atom-numbers:toggle'
+          'label': 'Increment'
+          'command': 'atom-numbers:increment'
+        }
+        {
+          'label': 'Decrement'
+          'command': 'atom-numbers:decrement'
         }
       ]
     ]
