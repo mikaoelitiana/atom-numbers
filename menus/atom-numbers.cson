@@ -13,11 +13,11 @@
       'label': 'Numbers'
       'submenu': [
         {
-          'label': 'Increment'
+          'label': 'Increment Selected'
           'command': 'atom-numbers:increment'
         }
         {
-          'label': 'Decrement'
+          'label': 'Decrement Selected'
           'command': 'atom-numbers:decrement'
         }
       ]

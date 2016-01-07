@@ -9,9 +9,6 @@
     "Decrement",
     "operations"
   ],
-  "activationCommands": {
-    "atom-workspace": "atom-numbers:increment"
-  },
   "repository": "https://github.com/atom/atom-numbers",
   "license": "MIT",
   "engines": {
