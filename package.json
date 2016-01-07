@@ -2,12 +2,13 @@
   "name": "atom-numbers",
   "main": "./lib/atom-numbers",
   "version": "0.2.0",
-  "description": "Atom numbers tools",
+  "description": "Tools to play with numbers",
   "keywords": [
     "numbers",
     "Increment",
     "Decrement",
-    "operations"
+    "operations",
+    "pi"
   ],
   "repository": "https://github.com/mikaoelitiana/atom-numbers.git",
   "license": "MIT",

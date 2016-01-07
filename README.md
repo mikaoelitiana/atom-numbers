@@ -1,4 +1,4 @@
-# atom-numbers package
+# atom-numbers
 
 This package will add interesting features related to numbers like :
 
@@ -6,7 +6,7 @@ This package will add interesting features related to numbers like :
  - find numbers
  - bulk operations
  - convert to text
- ...
+ - insert special numbers (Pi)
 
  # Key binding
  - ctrl-alt-i: Increment selected number by 1
