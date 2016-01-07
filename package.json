@@ -9,7 +9,7 @@
     "Decrement",
     "operations"
   ],
-  "repository": "https://github.com/atom/atom-numbers",
+  "repository": "https://github.com/mikaoelitiana/atom-numbers.git",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
