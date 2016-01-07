@@ -5,6 +5,10 @@
       'label': 'Increment number'
       'command': 'atom-numbers:increment'
     }
+    {
+      'label': 'Decrement number'
+      'command': 'atom-numbers:decrement'
+    }
   ]
 'menu': [
   {
@@ -19,6 +23,13 @@
         {
           'label': 'Decrement Selected'
           'command': 'atom-numbers:decrement'
+        }
+        {
+          'type': 'separator'
+        }
+        {
+          'label': 'Insert Pi'
+          'command': 'atom-numbers:pi'
         }
       ]
     ]

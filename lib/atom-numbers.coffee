@@ -13,24 +13,30 @@ module.exports = AtomNumbers =
     @subscriptions.add atom.commands.add 'atom-workspace',
       'atom-numbers:increment': => @increment()
       'atom-numbers:decrement': => @decrement()
+      'atom-numbers:pi': => @insertPi()
 
   deactivate: ->
     @subscriptions.dispose()
 
   serialize: ->
 
+  replaceSelectedWith: (str) ->
+    editor = atom.workspace.getActiveTextEditor()
+    range = editor.getSelectedBufferRange()
+    editor.setTextInBufferRange(range, str)
+
   increment: ->
     if editor = atom.workspace.getActiveTextEditor()
       selectedText = editor.getSelectedText()
-      if isFinite selectedText
-        incrementedValue = Number(selectedText) + 1
-        range = editor.getSelectedBufferRange()
-        editor.setTextInBufferRange(range, incrementedValue.toString())
+      if isFinite(selectedText) && selectedText != ''
+        @replaceSelectedWith((Number(selectedText) + 1).toString())
 
   decrement: ->
     if editor = atom.workspace.getActiveTextEditor()
       selectedText = editor.getSelectedText()
-      if isFinite selectedText
-        incrementedValue = Number(selectedText) - 1
-        range = editor.getSelectedBufferRange()
-        editor.setTextInBufferRange(range, incrementedValue.toString())
+      if isFinite(selectedText)  && selectedText != ''
+        @replaceSelectedWith((Number(selectedText) - 1).toString())
+
+  insertPi: ->
+    if editor = atom.workspace.getActiveTextEditor()
+      editor.insertText('3.14159265359')

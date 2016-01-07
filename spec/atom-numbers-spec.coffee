@@ -20,16 +20,24 @@ describe "Atom Numbers", ->
     runs ->
       editor = atom.workspace.getActiveTextEditor()
 
-  it "should decrement selected number's value by 1", ->
-    editor.setText('I can count to 3')
-    editor.setCursorScreenPosition([0,15])
-    editor.selectToScreenPosition([0,16])
-    atom.commands.dispatch workspaceElement, 'atom-numbers:decrement'
-    expect(editor.getText()).toEqual('I can count to 2')
+  describe "Increment & decrement numbers", ->
 
-  it "should increment selected number's value by 1", ->
-    editor.setText('I can count to 3')
-    editor.setCursorScreenPosition([0,15])
-    editor.selectToScreenPosition([0,16])
-    atom.commands.dispatch workspaceElement, 'atom-numbers:increment'
-    expect(editor.getText()).toEqual('I can count to 4')
+    it "should decrement selected number's value by 1", ->
+      editor.setText('I can count to 3')
+      editor.setCursorScreenPosition([0,15])
+      editor.selectToScreenPosition([0,16])
+      atom.commands.dispatch workspaceElement, 'atom-numbers:decrement'
+      expect(editor.getText()).toEqual('I can count to 2')
+
+    it "should increment selected number's value by 1", ->
+      editor.setText('I can count to 3')
+      editor.setCursorScreenPosition([0,15])
+      editor.selectToScreenPosition([0,16])
+      atom.commands.dispatch workspaceElement, 'atom-numbers:increment'
+      expect(editor.getText()).toEqual('I can count to 4')
+
+  describe "Special numbers", ->
+    it "should insert PI value", ->
+      editor.setText('The value of Pi is ')
+      atom.commands.dispatch workspaceElement, 'atom-numbers:pi'
+      expect(editor.getText()).toEqual('The value of Pi is 3.14159265359')
