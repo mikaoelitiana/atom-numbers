@@ -8,6 +8,6 @@ This package will add interesting features related to numbers like :
  - convert to text
  - insert special numbers (Pi)
 
- # Key binding
- - ctrl-alt-i: Increment selected number by 1
- - ctrl-alt-j: Decrement selected number by 1
+ ## Key binding
+ - ctrl-alt-i: Increment selected numbers by 1
+ - ctrl-alt-j: Decrement selected numbers by 1

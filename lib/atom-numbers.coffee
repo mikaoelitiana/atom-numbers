@@ -20,22 +20,27 @@ module.exports = AtomNumbers =
 
   serialize: ->
 
-  replaceSelectedWith: (str) ->
+  replaceSelectedWith: (str, range) ->
     editor = atom.workspace.getActiveTextEditor()
-    range = editor.getSelectedBufferRange()
+    if !range?
+      range = editor.getSelectedBufferRange()
     editor.setTextInBufferRange(range, str)
 
   increment: ->
     if editor = atom.workspace.getActiveTextEditor()
-      selectedText = editor.getSelectedText()
-      if isFinite(selectedText) && selectedText != ''
-        @replaceSelectedWith((Number(selectedText) + 1).toString())
+      selection = editor.getSelectedBufferRanges()
+      for range in selection
+        selectedText = editor.getTextInBufferRange(range)
+        if isFinite(selectedText) && selectedText != ''
+          @replaceSelectedWith((Number(selectedText) + 1).toString(), range)
 
   decrement: ->
     if editor = atom.workspace.getActiveTextEditor()
-      selectedText = editor.getSelectedText()
-      if isFinite(selectedText)  && selectedText != ''
-        @replaceSelectedWith((Number(selectedText) - 1).toString())
+      selection = editor.getSelectedBufferRanges()
+      for range in selection
+        selectedText = editor.getTextInBufferRange(range)
+        if isFinite(selectedText) && selectedText != ''
+          @replaceSelectedWith((Number(selectedText) - 1).toString(), range)
 
   insertPi: ->
     if editor = atom.workspace.getActiveTextEditor()
