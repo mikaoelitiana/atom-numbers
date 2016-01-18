@@ -31,6 +31,21 @@
           'label': 'Insert Pi'
           'command': 'atom-numbers:pi'
         }
+        {
+          'type': 'separator'
+        }
+        {
+          'label': 'SemVer Increment Major Version'
+          'command': 'atom-numbers:increment-major'
+        }
+        {
+          'label': 'SemVer Increment Minor Version'
+          'command': 'atom-numbers:increment-minor'
+        }
+        {
+          'label': 'SemVer Increment Patch Version'
+          'command': 'atom-numbers:increment-patch'
+        }
       ]
     ]
   }
