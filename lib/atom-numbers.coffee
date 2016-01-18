@@ -49,14 +49,6 @@ module.exports = AtomNumbers =
     if editor = atom.workspace.getActiveTextEditor()
       editor.insertText('3.14159265359')
 
-  incrementMajor: ->
-    if editor = atom.workspace.getActiveTextEditor()
-      selection = editor.getSelectedBufferRanges()
-      for range in selection
-        selectedText = editor.getTextInBufferRange(range)
-        if @_isSemVer(selectedText) && selectedText != ''
-          @replaceSelectedWith(@_incrementMajor(selectedText), range)
-
   _isSemVer: (ver) ->
     return /^(\d+\.)?(\d+\.)?(\*|\d+)$/.test ver
 
@@ -71,3 +63,23 @@ module.exports = AtomNumbers =
   _incrementMajor: (ver) ->
     current = @_getSemVerParts ver
     (current.major + 1) + '.0.0'
+
+  _incrementMinor: (ver) ->
+    current = @_getSemVerParts ver
+    current.major + '.'  + (current.minor + 1) + '.0'
+
+  incrementMajor: ->
+    if editor = atom.workspace.getActiveTextEditor()
+      selection = editor.getSelectedBufferRanges()
+      for range in selection
+        selectedText = editor.getTextInBufferRange(range)
+        if @_isSemVer(selectedText) && selectedText != ''
+          @replaceSelectedWith(@_incrementMajor(selectedText), range)
+
+  incrementMinor: ->
+    if editor = atom.workspace.getActiveTextEditor()
+      selection = editor.getSelectedBufferRanges()
+      for range in selection
+        selectedText = editor.getTextInBufferRange(range)
+        if @_isSemVer(selectedText) && selectedText != ''
+          @replaceSelectedWith(@_incrementMinor(selectedText), range)

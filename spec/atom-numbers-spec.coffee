@@ -78,3 +78,23 @@ describe "Atom Numbers", ->
       editor.selectToScreenPosition([0,13])
       atom.commands.dispatch workspaceElement, 'atom-numbers:increment-major'
       expect(editor.getText()).toEqual('Version 3.0.0')
+    it "should increment minor version", ->
+      next = AtomNumbers._incrementMinor '1.2.3'
+      ver = AtomNumbers._getSemVerParts next
+      expect(ver).toEqual({major: 1, minor: 3, patch: 0})
+      next = AtomNumbers._incrementMinor '2.3'
+      ver = AtomNumbers._getSemVerParts next
+      expect(ver).toEqual({major: 2, minor: 4, patch: 0})
+      next = AtomNumbers._incrementMinor '3'
+      ver = AtomNumbers._getSemVerParts next
+      expect(ver).toEqual({major: 3, minor: 1, patch: 0})
+    it "should increment major version of selected text", ->
+      editor.setText('Version 1.2.3')
+      editor.setCursorScreenPosition([0,8])
+      editor.selectToScreenPosition([0,13])
+      atom.commands.dispatch workspaceElement, 'atom-numbers:increment-minor'
+      expect(editor.getText()).toEqual('Version 1.3.0')
+      editor.setCursorScreenPosition([0,8])
+      editor.selectToScreenPosition([0,13])
+      atom.commands.dispatch workspaceElement, 'atom-numbers:increment-minor'
+      expect(editor.getText()).toEqual('Version 1.4.0')

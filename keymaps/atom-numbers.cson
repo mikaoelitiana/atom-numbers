@@ -10,3 +10,5 @@
 'atom-workspace':
   'ctrl-alt-i': 'atom-numbers:increment'
   'ctrl-alt-j': 'atom-numbers:decrement'
+  'ctrl-alt-v M': 'atom-numbers:increment-major'
+  'ctrl-alt-v m': 'atom-numbers:increment-minor'

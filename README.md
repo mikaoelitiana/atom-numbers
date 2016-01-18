@@ -11,3 +11,5 @@ This package will add interesting features related to numbers like :
  ## Key binding
  - ctrl-alt-i: Increment selected numbers by 1
  - ctrl-alt-j: Decrement selected numbers by 1
+ - ctrl-alt-v M: (SemVer) Increment major version by 1
+ - ctrl-alt-v m: (SemVer) Increment minor version by 1
