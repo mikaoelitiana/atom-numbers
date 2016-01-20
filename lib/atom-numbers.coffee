@@ -29,21 +29,19 @@ module.exports = AtomNumbers =
       range = editor.getSelectedBufferRange()
     editor.setTextInBufferRange(range, str)
 
-  increment: ->
+  addToSelection: (delta) ->
     if editor = atom.workspace.getActiveTextEditor()
       selection = editor.getSelectedBufferRanges()
       for range in selection
         selectedText = editor.getTextInBufferRange(range)
         if isFinite(selectedText) && selectedText != ''
-          @replaceSelectedWith((Number(selectedText) + 1).toString(), range)
+          @replaceSelectedWith((Number(selectedText) + delta).toString(), range)
+
+  increment: ->
+    @addToSelection 1
 
   decrement: ->
-    if editor = atom.workspace.getActiveTextEditor()
-      selection = editor.getSelectedBufferRanges()
-      for range in selection
-        selectedText = editor.getTextInBufferRange(range)
-        if isFinite(selectedText) && selectedText != ''
-          @replaceSelectedWith((Number(selectedText) - 1).toString(), range)
+    @addToSelection -1
 
   insertPi: ->
     if editor = atom.workspace.getActiveTextEditor()
@@ -61,25 +59,44 @@ module.exports = AtomNumbers =
     }
 
   _incrementMajor: (ver) ->
-    current = @_getSemVerParts ver
-    (current.major + 1) + '.0.0'
+    if typeof ver is 'string'
+      ver = @_getSemVerParts ver
+    (ver.major + 1) + '.0.0'
 
   _incrementMinor: (ver) ->
-    current = @_getSemVerParts ver
-    current.major + '.'  + (current.minor + 1) + '.0'
+    if typeof ver is 'string'
+      ver = @_getSemVerParts ver
+    ver.major + '.'  + (ver.minor + 1) + '.0'
+
+  _incrementPatch: (ver) ->
+    if typeof ver is 'string'
+      ver = @_getSemVerParts ver
+    ver.major + '.'  + ver.minor + '.' + (ver.patch + 1)
+
+  incrementSelection: (part) ->
+    switch part
+      when 'major'
+        func = @_incrementMajor
+      when 'minor'
+        func = @_incrementMinor
+      when 'patch'
+        func = @_incrementPatch
+      else
+        null
+    if editor = atom.workspace.getActiveTextEditor()
+      selection = editor.getSelectedBufferRanges()
+      for range in selection
+        selectedText = editor.getTextInBufferRange(range)
+        if @_isSemVer(selectedText) && selectedText != ''
+          ver = @_getSemVerParts selectedText
+          console.log ver
+          @replaceSelectedWith(func(ver), range)
 
   incrementMajor: ->
-    if editor = atom.workspace.getActiveTextEditor()
-      selection = editor.getSelectedBufferRanges()
-      for range in selection
-        selectedText = editor.getTextInBufferRange(range)
-        if @_isSemVer(selectedText) && selectedText != ''
-          @replaceSelectedWith(@_incrementMajor(selectedText), range)
+    @incrementSelection 'major'
 
   incrementMinor: ->
-    if editor = atom.workspace.getActiveTextEditor()
-      selection = editor.getSelectedBufferRanges()
-      for range in selection
-        selectedText = editor.getTextInBufferRange(range)
-        if @_isSemVer(selectedText) && selectedText != ''
-          @replaceSelectedWith(@_incrementMinor(selectedText), range)
+    @incrementSelection 'minor'
+
+  incrementPatch: () ->
+    @incrementSelection 'patch'

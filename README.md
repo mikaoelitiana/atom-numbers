@@ -3,6 +3,7 @@
 This package will add interesting features related to numbers like :
 
  - increment/decrement
+ - semver operations (increment major, minor or patch)
  - find numbers
  - bulk operations
  - convert to text
@@ -13,3 +14,4 @@ This package will add interesting features related to numbers like :
  - ctrl-alt-j: Decrement selected numbers by 1
  - ctrl-alt-v M: (SemVer) Increment major version by 1
  - ctrl-alt-v m: (SemVer) Increment minor version by 1
+ - ctrl-alt-v p: (SemVer) Increment patch version by 1

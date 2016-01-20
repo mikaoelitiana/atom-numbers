@@ -12,3 +12,4 @@
   'ctrl-alt-j': 'atom-numbers:decrement'
   'ctrl-alt-v M': 'atom-numbers:increment-major'
   'ctrl-alt-v m': 'atom-numbers:increment-minor'
+  'ctrl-alt-v p': 'atom-numbers:increment-patch'
