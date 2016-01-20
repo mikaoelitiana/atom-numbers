@@ -114,7 +114,7 @@ describe "Atom Numbers", ->
       editor.selectToScreenPosition([0,13])
       atom.commands.dispatch workspaceElement, 'atom-numbers:increment-patch'
       expect(editor.getText()).toEqual('Version 1.2.4')
-      # editor.setCursorScreenPosition([0,8])
-      # editor.selectToScreenPosition([0,13])
-      # atom.commands.dispatch workspaceElement, 'atom-numbers:increment-patch'
-      # expect(editor.getText()).toEqual('Version 1.2.5')
+      editor.setCursorScreenPosition([0,8])
+      editor.selectToScreenPosition([0,13])
+      atom.commands.dispatch workspaceElement, 'atom-numbers:increment-patch'
+      expect(editor.getText()).toEqual('Version 1.2.5')
