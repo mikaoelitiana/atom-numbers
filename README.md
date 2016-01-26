@@ -1,12 +1,8 @@
 # atom-numbers
 
 This package will add interesting features related to numbers like :
-
- - increment/decrement
+ - increment/decrement numbers (even with unit or currency px, inch)
  - semver operations (increment major, minor or patch)
- - find numbers
- - bulk operations
- - convert to text
  - insert special numbers (Pi)
 
  ## Key binding
@@ -15,3 +11,8 @@ This package will add interesting features related to numbers like :
  - ctrl-alt-v M: (SemVer) Increment major version by 1
  - ctrl-alt-v m: (SemVer) Increment minor version by 1
  - ctrl-alt-v p: (SemVer) Increment patch version by 1
+
+ ## Coming soon features
+ - find numbers
+ - bulk operations
+ - convert to text

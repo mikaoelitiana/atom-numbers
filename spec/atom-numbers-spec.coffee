@@ -1,4 +1,5 @@
 AtomNumbers = require '../lib/atom-numbers'
+Numbers = require '../lib/numbers'
 
 # Use the command `window:run-package-specs` (cmd-alt-ctrl-p) to run specs.
 #
@@ -21,7 +22,6 @@ describe "Atom Numbers", ->
       editor = atom.workspace.getActiveTextEditor()
 
   describe "Increment & decrement numbers", ->
-
     it "should decrement selected number's value by 1", ->
       editor.setText('I can count to 3')
       editor.setCursorScreenPosition([0,15])
@@ -36,6 +36,20 @@ describe "Atom Numbers", ->
       atom.commands.dispatch workspaceElement, 'atom-numbers:increment'
       expect(editor.getText()).toEqual('I can count to 4')
 
+    it "should increment number having unity", ->
+      editor.setText('I have $50')
+      editor.setCursorScreenPosition([0,7])
+      editor.selectToScreenPosition([0,10])
+      atom.commands.dispatch workspaceElement, 'atom-numbers:increment'
+      atom.commands.dispatch workspaceElement, 'atom-numbers:increment'
+      expect(editor.getText()).toEqual('I have $52')
+      editor.setText('Up 326px')
+      editor.setCursorScreenPosition([0,3])
+      editor.selectToScreenPosition([0,8])
+      atom.commands.dispatch workspaceElement, 'atom-numbers:increment'
+      expect(editor.getText()).toEqual('Up 327px')
+      expect(Numbers.incrementNumber '345px', 1).toEqual('346px')
+
   describe "Special numbers", ->
     it "should insert PI value", ->
       editor.setText('The value of Pi is ')
@@ -44,30 +58,33 @@ describe "Atom Numbers", ->
 
   describe "SemVer", ->
     it "should match SemVer expression only", ->
-      expect(AtomNumbers._isSemVer "1.0.0").toEqual(true)
-      expect(AtomNumbers._isSemVer "1.2.3").toEqual(true)
-      expect(AtomNumbers._isSemVer "1..3").toEqual(false)
-      expect(AtomNumbers._isSemVer "3").toEqual(true)
-      expect(AtomNumbers._isSemVer "version").toEqual(false)
+      expect(Numbers.isSemVer "1.0.0").toEqual(true)
+      expect(Numbers.isSemVer "1.2.3").toEqual(true)
+      expect(Numbers.isSemVer "1..3").toEqual(false)
+      expect(Numbers.isSemVer "3").toEqual(true)
+      expect(Numbers.isSemVer "version").toEqual(false)
+
     it "should get correct parts from SemVer expression", ->
-      ver = AtomNumbers._getSemVerParts '1.2.3'
+      ver = Numbers.getSemVerParts '1.2.3'
       expect(ver).toEqual({major: 1, minor: 2, patch: 3})
-      ver = AtomNumbers._getSemVerParts '2.6.9'
+      ver = Numbers.getSemVerParts '2.6.9'
       expect(ver).toEqual({major: 2, minor: 6, patch: 9})
-      ver = AtomNumbers._getSemVerParts '2.5'
+      ver = Numbers.getSemVerParts '2.5'
       expect(ver).toEqual({major: 2, minor: 5, patch: 0})
-      ver = AtomNumbers._getSemVerParts '5'
+      ver = Numbers.getSemVerParts '5'
       expect(ver).toEqual({major: 5, minor: 0, patch: 0})
+
     it "should increment major version", ->
-      next = AtomNumbers._incrementMajor '1.2.3'
-      ver = AtomNumbers._getSemVerParts next
+      next = Numbers.incrementMajor '1.2.3'
+      ver = Numbers.getSemVerParts next
       expect(ver).toEqual({major: 2, minor: 0, patch: 0})
-      next = AtomNumbers._incrementMajor '2.3'
-      ver = AtomNumbers._getSemVerParts next
+      next = Numbers.incrementMajor '2.3'
+      ver = Numbers.getSemVerParts next
       expect(ver).toEqual({major: 3, minor: 0, patch: 0})
-      next = AtomNumbers._incrementMajor '3'
-      ver = AtomNumbers._getSemVerParts next
+      next = Numbers.incrementMajor '3'
+      ver = Numbers.getSemVerParts next
       expect(ver).toEqual({major: 4, minor: 0, patch: 0})
+
     it "should increment major version of selected text", ->
       editor.setText('Version 1.2.3')
       editor.setCursorScreenPosition([0,8])
@@ -78,16 +95,18 @@ describe "Atom Numbers", ->
       editor.selectToScreenPosition([0,13])
       atom.commands.dispatch workspaceElement, 'atom-numbers:increment-major'
       expect(editor.getText()).toEqual('Version 3.0.0')
+
     it "should increment minor version", ->
-      next = AtomNumbers._incrementMinor '1.2.3'
-      ver = AtomNumbers._getSemVerParts next
+      next = Numbers.incrementMinor '1.2.3'
+      ver = Numbers.getSemVerParts next
       expect(ver).toEqual({major: 1, minor: 3, patch: 0})
-      next = AtomNumbers._incrementMinor '2.3'
-      ver = AtomNumbers._getSemVerParts next
+      next = Numbers.incrementMinor '2.3'
+      ver = Numbers.getSemVerParts next
       expect(ver).toEqual({major: 2, minor: 4, patch: 0})
-      next = AtomNumbers._incrementMinor '3'
-      ver = AtomNumbers._getSemVerParts next
+      next = Numbers.incrementMinor '3'
+      ver = Numbers.getSemVerParts next
       expect(ver).toEqual({major: 3, minor: 1, patch: 0})
+
     it "should increment minor version of selected text", ->
       editor.setText('Version 1.2.3')
       editor.setCursorScreenPosition([0,8])
@@ -98,16 +117,18 @@ describe "Atom Numbers", ->
       editor.selectToScreenPosition([0,13])
       atom.commands.dispatch workspaceElement, 'atom-numbers:increment-minor'
       expect(editor.getText()).toEqual('Version 1.4.0')
+
     it "should increment patch version", ->
-      next = AtomNumbers._incrementPatch '1.2.3'
-      ver = AtomNumbers._getSemVerParts next
+      next = Numbers.incrementPatch '1.2.3'
+      ver = Numbers.getSemVerParts next
       expect(ver).toEqual({major: 1, minor: 2, patch: 4})
-      next = AtomNumbers._incrementPatch '2.3'
-      ver = AtomNumbers._getSemVerParts next
+      next = Numbers.incrementPatch '2.3'
+      ver = Numbers.getSemVerParts next
       expect(ver).toEqual({major: 2, minor: 3, patch: 1})
-      next = AtomNumbers._incrementPatch '3'
-      ver = AtomNumbers._getSemVerParts next
+      next = Numbers.incrementPatch '3'
+      ver = Numbers.getSemVerParts next
       expect(ver).toEqual({major: 3, minor: 0, patch: 1})
+      
     it "should increment patch version of selected text", ->
       editor.setText('Version 1.2.3')
       editor.setCursorScreenPosition([0,8])
