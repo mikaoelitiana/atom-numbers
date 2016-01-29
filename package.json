@@ -1,7 +1,7 @@
 {
   "name": "atom-numbers",
   "main": "./lib/atom-numbers",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "Tools to play with numbers",
   "keywords": [
     "numbers",
