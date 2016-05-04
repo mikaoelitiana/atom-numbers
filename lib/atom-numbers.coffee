@@ -18,6 +18,7 @@ module.exports = AtomNumbers =
       'atom-numbers:increment-major': => @incrementMajor()
       'atom-numbers:increment-minor': => @incrementMinor()
       'atom-numbers:increment-patch': => @incrementPatch()
+      'atom-numbers:calculate': => @calculate()
 
   deactivate: ->
     @subscriptions.dispose()
@@ -75,3 +76,11 @@ module.exports = AtomNumbers =
 
   incrementPatch: () ->
     @incrementSelection 'patch'
+
+  calculate: () ->
+    if editor = atom.workspace.getActiveTextEditor()
+      selection = editor.getSelectedBufferRanges()
+      for range in selection
+        selectedText = editor.getTextInBufferRange(range)
+        if selectedText != ''
+          @replaceSelectedWith(Numbers.calculate(selectedText).toString(), range)

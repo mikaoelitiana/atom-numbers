@@ -13,3 +13,4 @@
   'ctrl-alt-v M': 'atom-numbers:increment-major'
   'ctrl-alt-v m': 'atom-numbers:increment-minor'
   'ctrl-alt-v p': 'atom-numbers:increment-patch'
+  'ctrl-alt-shift-c': 'atom-numbers:calculate'
