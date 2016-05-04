@@ -1,3 +1,4 @@
+nerdamer = require 'nerdamer'
 module.exports = Numbers =
 
   incrementNumber: (content, delta) ->
@@ -29,3 +30,6 @@ module.exports = Numbers =
     if typeof ver is 'string'
       ver = @getSemVerParts ver
     ver.major + '.'  + ver.minor + '.' + (ver.patch + 1)
+
+  calculate: (op) ->
+    nerdamer(op).text()

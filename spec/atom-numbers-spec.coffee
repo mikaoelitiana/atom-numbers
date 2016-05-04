@@ -128,7 +128,7 @@ describe "Atom Numbers", ->
       next = Numbers.incrementPatch '3'
       ver = Numbers.getSemVerParts next
       expect(ver).toEqual({major: 3, minor: 0, patch: 1})
-      
+
     it "should increment patch version of selected text", ->
       editor.setText('Version 1.2.3')
       editor.setCursorScreenPosition([0,8])
@@ -139,3 +139,16 @@ describe "Atom Numbers", ->
       editor.selectToScreenPosition([0,13])
       atom.commands.dispatch workspaceElement, 'atom-numbers:increment-patch'
       expect(editor.getText()).toEqual('Version 1.2.5')
+
+  describe "Calculate", ->
+    it "should calculate number operation (+,-,*,/)", ->
+      expect(Numbers.calculate "2*2").toEqual('4')
+      expect(Numbers.calculate "2*2+9*2-6/2").toEqual('19')
+      expect(Numbers.calculate "-2*2-6/2").toEqual('-7')
+      expect(Numbers.calculate "-2a*2").toEqual('-4*a')
+    it "should calculate selected operations", ->
+      editor.setText('1440+60')
+      editor.setCursorScreenPosition([0,0])
+      editor.selectToScreenPosition([0,7])
+      atom.commands.dispatch workspaceElement, 'atom-numbers:calculate'
+      expect(editor.getText()).toEqual('1500')

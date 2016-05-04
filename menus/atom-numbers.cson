@@ -9,6 +9,10 @@
       'label': 'Decrement number'
       'command': 'atom-numbers:decrement'
     }
+    {
+      'label': 'Calculate Selected Operation'
+      'command': 'atom-numbers:calculate'
+    }
   ]
 'menu': [
   {
@@ -45,6 +49,13 @@
         {
           'label': 'SemVer Increment Patch Version'
           'command': 'atom-numbers:increment-patch'
+        }
+        {
+          'type': 'separator'
+        }
+        {
+          'label': 'Calculate Selected Operation'
+          'command': 'atom-numbers:calculate'
         }
       ]
     ]
