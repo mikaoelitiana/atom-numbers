@@ -16,6 +16,6 @@
     "atom": ">=1.0.0 <2.0.0"
   },
   "dependencies": {
-    "nerdamer": "^0.5.7"
+    "nerdamer": "^0.7.16"
   }
 }
