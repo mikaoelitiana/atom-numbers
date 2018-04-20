@@ -140,6 +140,10 @@ describe "Atom Numbers", ->
       atom.commands.dispatch workspaceElement, 'atom-numbers:increment-patch'
       expect(editor.getText()).toEqual('Version 1.2.5')
 
+    it "should calculate % operations", ->
+      expect(Numbers.calculate('20*10%')).toEqual('2')
+      expect(Numbers.calculate('20*51%')).toEqual('10.2')
+
   describe "Calculate", ->
     it "should calculate number operation (+,-,*,/)", ->
       expect(Numbers.calculate "2*2").toEqual('4')
@@ -152,3 +156,9 @@ describe "Atom Numbers", ->
       editor.selectToScreenPosition([0,7])
       atom.commands.dispatch workspaceElement, 'atom-numbers:calculate'
       expect(editor.getText()).toEqual('1500')
+    it "should calculate selected operations", ->
+      editor.setText('20*10%')
+      editor.setCursorScreenPosition([0,0])
+      editor.selectToScreenPosition([0,7])
+      atom.commands.dispatch workspaceElement, 'atom-numbers:calculate'
+      expect(editor.getText()).toEqual('2')
